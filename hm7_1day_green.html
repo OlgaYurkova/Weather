@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800&amp;subset=cyrillic" rel="stylesheet">
+  	<style type="text/css">
+    body,html {
+        font-size: 32px;
+        font-family: 'Open Sans', sans-serif;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        overflow: auto;
+        margin: 0 auto;
+    }
+  	 .note{
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        background: #00c853;
+        color: white;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+      }
+      .temp{
+        padding-top:30%; 
+        text-align: center;
+      }
+      .country{
+        font-size: 14px;
+      }
+      .about{
+        font-size: 14px;
+        text-align: center;
+      }
+      .speed{
+        padding-top: 20%;
+        font-size: 14px;
+        padding-left: 70%; 
+      }
+  	</style>
+</head>
+<body>
+<div class="note">
+  <div class="country"></div>
+  <div class="temp"></div>
+  <div class="about"></div>
+  <div class="speed"></div>
+</div>
+
+<script type="text/javascript">
+  
+  function getLocationAndWeather(weatherNote){
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(function(pos){
+      let lat = pos.coords.latitude;
+      let lng = pos.coords.longitude;
+
+      fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&APPID=875012f111377f30bfe2073d73e59ee8`)
+      .then(response => response.json()).then( weather => {
+        document.querySelector(".country").textContent = weather.sys.country;
+        document.querySelector(".temp").textContent = weather.main.temp +" ℃";
+        document.querySelector(".about").textContent =weather.weather[0].description ;
+        document.querySelector(".speed").textContent ="wind: "+weather.wind.speed +" m/s";
+      });
+
+    })
+  }
+};
+getLocationAndWeather();
+</script>
+</body>
+</html>
