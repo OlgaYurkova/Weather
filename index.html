@@ -59,7 +59,7 @@
       let lat = pos.coords.latitude;
       let lng = pos.coords.longitude;
 
-      fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&APPID=875012f111377f30bfe2073d73e59ee8`)
+      fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&APPID=875012f111377f30bfe2073d73e59ee8`)
       .then(response => response.json()).then( weather => {
         document.querySelector(".country").textContent = weather.sys.country;
         document.querySelector(".temp").textContent = weather.main.temp +" ℃";
